@@ -9,12 +9,14 @@ from fastapi.responses import JSONResponse
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
 from src.books.routes import book_router
+from src.db.main import init_db
 
 
 @asynccontextmanager
 async def life_span(_app: FastAPI):
     """books async context manager"""
     print("server is starting ..... ")
+    await init_db()
     yield
     print("server has been stopped.")
 
