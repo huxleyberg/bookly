@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from src.books.book_data import books
-from src.books.schemas import BookSchema, BookUpdateSchema
+from src.books.schemas import Book, BookUpdateSchema
 
 book_router = APIRouter()
 
@@ -21,7 +21,7 @@ async def read_book(book_id: int):
 
 
 @book_router.post("/", status_code=201)
-async def create_book(book: BookSchema):
+async def create_book(book: Book):
     """Create a new book"""
     books.append(book)
     return book
