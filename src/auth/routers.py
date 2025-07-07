@@ -1,15 +1,17 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from fastapi import APIRouter, Depends, status
 from fastapi.exceptions import HTTPException
 from fastapi.responses import JSONResponse
 from sqlmodel.ext.asyncio.session import AsyncSession
 
+from src.auth.dependencies import RefreshTokenBearer
 from src.auth.mapping import to_user_model
 from src.auth.schemas import UserCreateModel, UserLoginModel, UserModel
 from src.auth.service import UserService
 from src.auth.utils import create_access_token, verify_password
 from src.db.main import get_session
+from src.errors import InvalidToken
 
 auth_router = APIRouter()
 user_service = UserService()
@@ -78,3 +80,15 @@ async def login_users(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Login failed",
     )
+
+
+@auth_router.get("/refresh_token")
+async def get_new_access_token(token_details: dict = Depends(RefreshTokenBearer())):
+    expiry_timestamp = token_details["exp"]
+
+    if datetime.fromtimestamp(expiry_timestamp) > datetime.now():
+        new_access_token = create_access_token(user_data=token_details["user"])
+
+        return JSONResponse(content={"access_token": new_access_token})
+
+    raise InvalidToken
