@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from fastapi import APIRouter, Depends, status
 from fastapi.exceptions import HTTPException
@@ -8,7 +8,7 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from src.auth.mapping import to_user_model
 from src.auth.schemas import UserCreateModel, UserLoginModel, UserModel
 from src.auth.service import UserService
-from src.auth.utils import create_access_token, decode_token, verify_password
+from src.auth.utils import create_access_token, verify_password
 from src.db.main import get_session
 
 auth_router = APIRouter()
@@ -56,7 +56,6 @@ async def login_users(
                 user_data={
                     "email": user.email,
                     "user_uid": str(user.uid),
-                    "role": user.role,
                 }
             )
 
@@ -76,6 +75,6 @@ async def login_users(
             )
 
     raise HTTPException(
-        status_code=status.HTTP_403_FORBIDDEN,
-        detail="User login failed",
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Login failed",
     )
