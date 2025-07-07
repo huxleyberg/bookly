@@ -1,10 +1,7 @@
 import uuid
 from datetime import datetime
-from typing import List
 
 from pydantic import BaseModel, Field
-
-from src.books.schemas import Book
 
 
 class UserCreateModel(BaseModel):
@@ -26,13 +23,14 @@ class UserCreateModel(BaseModel):
         }
     }
 
-    class UserModel(BaseModel):
-        uid: uuid.UUID
-        username: str
-        email: str
-        first_name: str
-        last_name: str
-        is_verified: bool
-        password_hash: str = Field(exclude=True)
-        created_at: datetime
-        update_at: datetime
+
+class UserModel(BaseModel):
+    uid: uuid.UUID
+    username: str
+    email: str
+    first_name: str
+    last_name: str
+    is_verified: bool
+    password_hash: str = Field(exclude=True)
+    created_at: datetime
+    update_at: datetime

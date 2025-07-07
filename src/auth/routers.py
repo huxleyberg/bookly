@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, status
 from fastapi.exceptions import HTTPException
 from sqlmodel.ext.asyncio.session import AsyncSession
 
-from src.auth.schemas import UserCreateModel
+from src.auth.schemas import UserCreateModel, UserModel
 from src.auth.service import UserService
 from src.db.main import get_session
 
@@ -10,7 +10,9 @@ auth_router = APIRouter()
 user_service = UserService()
 
 
-@auth_router.post("/signup", status_code=status.HTTP_201_CREATED)
+@auth_router.post(
+    "/signup", response_model=UserModel, status_code=status.HTTP_201_CREATED
+)
 async def create_user_account(
     user_data: UserCreateModel,
     session: AsyncSession = Depends(get_session),

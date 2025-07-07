@@ -8,6 +8,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
+from src.auth.routers import auth_router
 from src.books.routes import book_router
 from src.db.main import init_db
 
@@ -30,5 +31,5 @@ app = FastAPI(
     lifespan=life_span,
 )
 
-
+app.include_router(auth_router, prefix=f"/api/{VERSION}/auth", tags=["auth"])
 app.include_router(book_router, prefix=f"/api/{VERSION}/books", tags=["books"])
