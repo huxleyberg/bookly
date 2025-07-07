@@ -1,5 +1,6 @@
 import uuid
 from datetime import datetime
+from typing import Optional
 
 from pydantic import BaseModel, Field
 
@@ -31,6 +32,6 @@ class UserModel(BaseModel):
     first_name: str
     last_name: str
     is_verified: bool
-    password_hash: str = Field(exclude=True)
+    password_hash: Optional[str] = Field(default=None, exclude=True)
     created_at: datetime
     update_at: datetime

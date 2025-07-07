@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, status
 from fastapi.exceptions import HTTPException
 from sqlmodel.ext.asyncio.session import AsyncSession
 
+from src.auth.mapping import to_user_model
 from src.auth.schemas import UserCreateModel, UserModel
 from src.auth.service import UserService
 from src.db.main import get_session
@@ -34,7 +35,4 @@ async def create_user_account(
 
     new_user = await user_service.create_user(user_data, session)
 
-    return {
-        "message": "Account Created.",
-        "user": new_user,
-    }
+    return to_user_model(new_user)
