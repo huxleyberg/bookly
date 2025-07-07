@@ -1,4 +1,4 @@
-.PHONY: dev migrations migrate upgrade downgrade history current heads show freeze
+.PHONY: dev migrations migrate upgrade downgrade history current heads show freeze env-example
 
 # Run development server
 dev:
@@ -55,3 +55,9 @@ show:
 # Freeze current environment packages into requirements.txt
 freeze:
 	pip freeze > requirements.txt
+
+# Generate .env.example from .env (remove values)
+env-example:
+	@echo "Generating .env.example..."
+	@cat .env | grep -v '^#' | sed 's/=.*$$/=/' > .env.example
+

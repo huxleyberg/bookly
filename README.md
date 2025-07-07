@@ -106,5 +106,20 @@ Bookly is ready to deploy to platforms like **Render**, **Railway**, or **Fly.io
 
 Set your `DATABASE_URL`, `SECRET_KEY`, and other env variables in the hosting dashboard.
 
+---
 
+## 🔐 Generate a Secret Key
 
+To generate a secure random secret key for use in environment variables like `SECRET_KEY`, run the following in your terminal using Python 3:
+
+```bash
+python3 -c "import secrets; print(secrets.token_hex(16))"
+
+---
+
+## 📁 `.env.example` Generation
+
+You can generate a clean `.env.example` file (without secrets or values) based on your local `.env` file:
+
+```bash
+make env-example
