@@ -106,19 +106,5 @@ Bookly is ready to deploy to platforms like **Render**, **Railway**, or **Fly.io
 
 Set your `DATABASE_URL`, `SECRET_KEY`, and other env variables in the hosting dashboard.
 
----
-
-## 📘 Learning Outcomes from *FastAPI Beyond CRUD*
-
-This project covers:
-
-- ✅ SQLModel & async engines
-- ✅ Path/query/body handling
-- ✅ Settings management via Pydantic
-- ✅ Auth with JWTs & OAuth2
-- ✅ Middleware & exception design
-- ✅ Background tasks with Celery
-- ✅ Full test coverage: unit, integration, property-based
-- ✅ Production deployment strategy
 
 
