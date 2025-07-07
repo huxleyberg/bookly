@@ -1,4 +1,4 @@
-.PHONY: dev migrations migrate upgrade downgrade history current heads show
+.PHONY: dev migrations migrate upgrade downgrade history current heads show freeze
 
 # Run development server
 dev:
@@ -52,3 +52,6 @@ show:
 		alembic show $(REV); \
 	fi
 
+# Freeze current environment packages into requirements.txt
+freeze:
+	pip freeze > requirements.txt
