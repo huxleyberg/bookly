@@ -1,6 +1,6 @@
-# 📚 Bookly – Advanced FastAPI Project
+# 📚 Bookly – FastAPI Project
 
-Bookly is a fully asynchronous, production-ready API built using **FastAPI** and **SQLModel**, following advanced API development best practices from the _"FastAPI Beyond CRUD"_ course. This project goes far beyond simple CRUD, showcasing how to build secure, scalable, and maintainable APIs with modern Python tooling.
+Bookly is a fully asynchronous, production-ready API built using **FastAPI** and **SQLModel**. This project goes far beyond simple CRUD, showcasing how to build secure, scalable, and maintainable APIs with modern Python tooling.
 
 ---
 
