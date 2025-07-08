@@ -7,8 +7,8 @@ from src.books.routes import book_router
 VERSION = "v1"
 
 
-debugpy.listen(("localhost", 5678))
-print("Debugger listening on port 5678")
+# debugpy.listen(("localhost", 5678))
+# print("Debugger listening on port 5678")
 
 app = FastAPI(
     title="Bookly",
