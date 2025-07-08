@@ -12,7 +12,7 @@ from src.auth.service import UserService
 from src.auth.utils import create_access_token, verify_password
 from src.db.main import get_session
 from src.db.redis import add_jti_to_blocklist
-from src.errors import InvalidToken
+from src.errors import InvalidCredentials, InvalidToken
 
 auth_router = APIRouter()
 user_service = UserService()
@@ -77,10 +77,7 @@ async def login_users(
                 }
             )
 
-    raise HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Login failed",
-    )
+    raise InvalidCredentials()
 
 
 @auth_router.get("/refresh_token")

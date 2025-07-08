@@ -2,6 +2,7 @@
 
 from contextlib import asynccontextmanager
 
+import debugpy
 from fastapi import FastAPI, Request
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
@@ -23,6 +24,10 @@ async def life_span(_app: FastAPI):
 
 
 VERSION = "v1"
+
+
+debugpy.listen(("localhost", 5678))
+print("Debugger listening on port 5678")
 
 app = FastAPI(
     title="Bookly",
