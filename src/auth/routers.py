@@ -8,6 +8,7 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from src.auth.dependencies import (
     AccessTokenBearer,
     RefreshTokenBearer,
+    RoleChecker,
     get_current_user,
 )
 from src.auth.mapping import to_user_model
@@ -21,6 +22,7 @@ from src.errors import InvalidCredentials, InvalidToken
 auth_router = APIRouter()
 user_service = UserService()
 REFRESH_TOKEN_EXPIRY: int = 2
+role_checker = RoleChecker(["admin", "user"])
 
 
 @auth_router.post(
@@ -63,6 +65,7 @@ async def login_users(
                 user_data={
                     "email": user.email,
                     "user_uid": str(user.uid),
+                    "role": user.role,
                 }
             )
 
@@ -108,5 +111,7 @@ async def revoke_token(token_details: dict = Depends(AccessTokenBearer())):
 
 
 @auth_router.get("/me")
-async def retrieve_current_user(user=Depends(get_current_user)):
+async def retrieve_current_user(
+    user=Depends(get_current_user), _: bool = Depends(role_checker)
+):
     return user
