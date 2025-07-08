@@ -5,7 +5,11 @@ from fastapi.exceptions import HTTPException
 from fastapi.responses import JSONResponse
 from sqlmodel.ext.asyncio.session import AsyncSession
 
-from src.auth.dependencies import AccessTokenBearer, RefreshTokenBearer
+from src.auth.dependencies import (
+    AccessTokenBearer,
+    RefreshTokenBearer,
+    get_current_user,
+)
 from src.auth.mapping import to_user_model
 from src.auth.schemas import UserCreateModel, UserLoginModel, UserModel
 from src.auth.service import UserService
@@ -101,3 +105,8 @@ async def revoke_token(token_details: dict = Depends(AccessTokenBearer())):
     return JSONResponse(
         content={"message": "Logged Out Successfully"}, status_code=status.HTTP_200_OK
     )
+
+
+@auth_router.get("/me")
+async def retrieve_current_user(user=Depends(get_current_user)):
+    return user
