@@ -3,6 +3,7 @@ from fastapi import FastAPI
 
 from src.auth.routers import auth_router
 from src.books.routes import book_router
+from src.reviews.routes import review_router
 
 VERSION = "v1"
 
@@ -18,3 +19,4 @@ app = FastAPI(
 
 app.include_router(auth_router, prefix=f"/api/{VERSION}/auth", tags=["auth"])
 app.include_router(book_router, prefix=f"/api/{VERSION}/books", tags=["books"])
+app.include_router(review_router, prefix=f"/api/{VERSION}/reviews", tags=["reviews"])
