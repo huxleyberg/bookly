@@ -3,7 +3,9 @@ from datetime import date, datetime, timezone
 from typing import Optional
 
 import sqlalchemy.dialects.postgresql as pg
-from sqlmodel import Column, Field, SQLModel
+from sqlmodel import Column, Field, Relationship, SQLModel
+
+from src.auth import models
 
 
 class Book(SQLModel, table=True):
@@ -18,6 +20,7 @@ class Book(SQLModel, table=True):
     page_count: int
     language: str
     user_uid: Optional[uuid.UUID] = Field(default=None, foreign_key="users.uid")
+    user: Optional["models.User"] = Relationship(back_populates="books")
     created_at: datetime = Field(
         sa_column=Column(
             pg.TIMESTAMP(timezone=True), default=datetime.now(timezone.utc)

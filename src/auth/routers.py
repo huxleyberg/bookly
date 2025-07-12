@@ -110,7 +110,7 @@ async def revoke_token(token_details: dict = Depends(AccessTokenBearer())):
     )
 
 
-@auth_router.get("/me")
+@auth_router.get("/me", response_model=UserModel)
 async def retrieve_current_user(
     user=Depends(get_current_user), _: bool = Depends(role_checker)
 ):

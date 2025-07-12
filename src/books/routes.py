@@ -26,7 +26,7 @@ async def get_all_books(
 @book_router.get(
     "/user/{user_uid}", response_model=List[Book], dependencies=[role_checker]
 )
-async def get_books_by_user_uid(
+async def get_user_book_submissions(
     user_uid: str,
     session: AsyncSession = Depends(get_session),
     _: dict = Depends(access_token_bearer),
