@@ -17,7 +17,7 @@ from src.auth.service import UserService
 from src.auth.utils import create_access_token, verify_password
 from src.db.main import get_session
 from src.db.redis import add_jti_to_blocklist
-from src.errors import InvalidCredentials, InvalidToken
+from src.errors import InvalidCredentials, InvalidToken, UserAlreadyExists
 
 auth_router = APIRouter()
 user_service = UserService()
@@ -38,10 +38,7 @@ async def create_user_account(
     user_exists = await user_service.user_exists(email, session)
 
     if user_exists:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="User with email already exists",
-        )
+        raise UserAlreadyExists
 
     new_user = await user_service.create_user(user_data, session)
 
