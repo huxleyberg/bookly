@@ -3,6 +3,7 @@ from fastapi import FastAPI
 
 from src.auth.routers import auth_router
 from src.books.routes import book_router
+from src.errors import register_all_errors
 from src.reviews.routes import review_router
 from src.tags.routes import tags_router
 
@@ -17,6 +18,8 @@ app = FastAPI(
     description="A REST API for a book review web service",
     version=VERSION,
 )
+
+register_all_errors(app)
 
 app.include_router(auth_router, prefix=f"/api/{VERSION}/auth", tags=["auth"])
 app.include_router(book_router, prefix=f"/api/{VERSION}/books", tags=["books"])
