@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
-from src.books.models import Book
+from src.db.models import Book
 
 
 class UserCreateModel(BaseModel):
@@ -37,6 +37,9 @@ class UserModel(BaseModel):
     password_hash: Optional[str] = Field(default=None, exclude=True)
     created_at: datetime
     update_at: datetime
+
+
+class UserBooksModel(UserModel):
     books: List[Book]
 
 

@@ -1,5 +1,5 @@
-from src.auth.models import User
 from src.auth.schemas import UserModel
+from src.db.models import User
 
 
 def to_user_model(user: User) -> UserModel:
