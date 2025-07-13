@@ -18,9 +18,9 @@ serializer = URLSafeTimedSerializer(
 
 
 def generate_passwd_hash(password: str) -> str:
-    hash = passwd_context.hash(password)
+    hash_str = passwd_context.hash(password)
 
-    return hash
+    return hash_str
 
 
 def verify_password(password: str, hash: str) -> bool:
