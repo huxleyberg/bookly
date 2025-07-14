@@ -1,10 +1,10 @@
 import debugpy
 from fastapi import FastAPI
 
-from middleware import register_middleware
 from src.auth.routers import auth_router
 from src.books.routes import book_router
 from src.errors import register_all_errors
+from src.middleware import register_middleware
 from src.reviews.routes import review_router
 from src.tags.routes import tags_router
 
