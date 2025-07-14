@@ -18,6 +18,9 @@ app = FastAPI(
     title="Bookly",
     description="A REST API for a book review web service",
     version=VERSION,
+    docs_url=f"/api/{VERSION}/docs",
+    redoc_url=f"/api/{VERSION}/redoc",
+    contact={"email": "huxleyberg@live.com"},
 )
 
 register_all_errors(app)

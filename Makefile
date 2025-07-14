@@ -1,4 +1,4 @@
-.PHONY: dev migrations migrate upgrade downgrade history current heads show freeze env-example
+.PHONY: dev migrations migrate upgrade downgrade history current heads show freeze env-example celery flower up down rebuild logs-celery
 
 # Run development server
 dev:
@@ -61,3 +61,29 @@ env-example:
 	@echo "Generating .env.example..."
 	@cat .env | grep -v '^#' | sed 's/=.*$$/=/' > .env.example
 
+# Start Docker Compose environment
+up:
+	docker-compose up --build
+
+# Stop Docker Compose services
+down:
+	docker-compose down
+
+# Rebuild and recreate containers
+rebuild:
+	docker-compose up --build --force-recreate
+
+# Start Celery worker
+celery:
+	docker-compose run --rm celery
+
+# Start Flower monitoring dashboard
+flower:
+	docker-compose run --rm \
+		-p 5555:5555 \
+		celery \
+		celery -A src.celery_tasks.c_app flower --port=5555
+
+# View Celery logs
+logs-celery:
+	docker-compose logs -f celery
