@@ -1,4 +1,4 @@
-name: Build and Lint
+name: Build, Lint & Test
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  build-lint:
-    name: Build & Lint App
+  build-lint-test:
+    name: Build, Lint & Test App
     runs-on: ubuntu-latest
 
     steps:
@@ -25,7 +25,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # - name: Run format check
+      # - name: Run format checks
       #   run: |
       #     pip install black flake8 isort
       #     black --check .
@@ -34,6 +34,11 @@ jobs:
 
       - name: Build containers using Makefile
         run: make up
+
+      - name: Run tests with Pytest
+        run: |
+          pip install pytest
+          pytest
 
       - name: Shut down containers
         if: always()
