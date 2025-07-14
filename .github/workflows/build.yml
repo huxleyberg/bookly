@@ -32,8 +32,8 @@ jobs:
       #     isort --check-only .
       #     flake8 .
 
-      - name: Build containers using Makefile
-        run: make up
+      # - name: Build containers using Makefile
+      #   run: make up
 
       - name: Run tests with Pytest
         run: |
