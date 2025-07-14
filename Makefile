@@ -1,4 +1,4 @@
-.PHONY: dev migrations migrate upgrade downgrade history current heads show freeze env-example celery flower up down rebuild logs-celery
+.PHONY: dev migrations migrate upgrade downgrade history current heads show freeze env-example celery flower up down rebuild logs-celery test
 
 # Run development server
 dev:
@@ -87,3 +87,7 @@ flower:
 # View Celery logs
 logs-celery:
 	docker-compose logs -f celery
+
+# Run tests using pytest
+test:
+	pytest --tb=short -q
